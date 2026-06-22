@@ -1,0 +1,8 @@
+name = "kcc-bridge"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+# Stateless bridge · no secrets, no KV bindings needed for Phase 1.
+# Read-only tools fetch from the static registry + GitHub raw content.
+# Bundle generation is pure computation, returns unsigned templates.

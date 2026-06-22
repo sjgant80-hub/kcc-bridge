@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>◊ KCC Bridge · MCP server for the AI Native Solutions estate</title>
+<meta name="description" content="KCC Bridge · MCP-over-HTTP server exposing the AI Native Solutions estate as a toolbelt for Claude Desktop, OpenAI Custom GPTs, n8n, LangChain, any MCP-compatible agent. Stateless, sovereign, MIT.">
+<meta name="prime" content="1327">
+<style>
+:root{--void:#0a0a0f;--void-2:#13121a;--ink:#1a1922;--line:#2a2934;--line-soft:#1f1e28;--cream:#e6e1d6;--cream-dim:#a8a395;--cream-muted:#6e6a5e;--brass:#b8974a;--amber:#e8a83a;--leaf:#6b8d4a;--violet:#a855f7}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--void);color:var(--cream);font:15px/1.65 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;min-height:100dvh;-webkit-font-smoothing:antialiased}
+header{background:var(--void-2);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header .brand{display:flex;align-items:center;gap:10px}
+header .mark{width:32px;height:32px;background:linear-gradient(135deg,var(--brass),var(--amber));border-radius:5px;display:grid;place-items:center;font-family:Georgia,serif;font-weight:700;font-size:18px;color:var(--void)}
+header .name{font-family:Georgia,serif;font-weight:700;font-size:18px}
+header .sub{font-family:ui-monospace,Menlo,monospace;font-size:9px;color:var(--cream-muted);letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
+header nav{margin-left:auto;display:flex;gap:18px}
+header nav a{color:var(--cream-dim);font-size:13px;text-decoration:none}
+header nav a:hover{color:var(--brass)}
+main{max-width:920px;margin:0 auto;padding:32px 24px 100px}
+h1{font-family:Georgia,serif;font-weight:700;font-size:32px;line-height:1.15;margin-bottom:12px;color:var(--cream);letter-spacing:-.01em}
+h2{font-family:Georgia,serif;font-weight:700;font-size:20px;margin:30px 0 10px;color:var(--brass)}
+h3{font-size:15px;margin:18px 0 6px;color:var(--cream)}
+p{margin-bottom:12px;color:var(--cream-dim)}
+ul,ol{margin:0 0 14px 22px}
+li{margin-bottom:5px;color:var(--cream-dim)}
+.hero{background:linear-gradient(135deg,rgba(184,151,74,.12),rgba(168,85,247,.04));border:1px solid var(--brass);border-radius:5px;padding:24px 28px;margin-bottom:24px}
+.hero h1{margin-bottom:8px;color:var(--brass)}
+.hero .seal{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--cream-muted);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+.hero .lede{font-size:16px;color:var(--cream-dim);line-height:1.65}
+code,pre{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--brass);background:var(--ink);padding:1px 6px;border-radius:2px}
+pre{padding:14px 16px;border:1px solid var(--line);border-radius:4px;color:var(--cream-dim);line-height:1.55;overflow-x:auto;white-space:pre;font-size:11.5px;margin:10px 0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:var(--void-2);padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--cream-muted);letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+td{padding:8px 12px;border-bottom:1px solid var(--line-soft);color:var(--cream-dim);vertical-align:top}
+td code{font-size:11px}
+a{color:var(--brass);text-decoration:none}a:hover{text-decoration:underline}
+.endpoint-banner{background:var(--ink);border:1px solid var(--brass);border-radius:4px;padding:14px 18px;margin:18px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.endpoint-banner .lbl{color:var(--cream-muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.endpoint-banner .url{color:var(--brass);font-weight:700;word-break:break-all}
+.btn{display:inline-block;padding:8px 16px;background:var(--brass);color:var(--void);border:none;border-radius:3px;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit;text-decoration:none}
+.btn:hover{background:var(--amber);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--cream-dim);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--brass);color:var(--brass)}
+.foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--cream-muted);letter-spacing:.08em;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark">◊</div>
+    <div>
+      <div class="name">KCC Bridge</div>
+      <div class="sub">v1.0.0 · MCP server · phase D · MIT</div>
+    </div>
+  </div>
+  <nav>
+    <a href="https://github.com/sjgant80-hub/kcc-bridge" target="_blank">GitHub</a>
+    <a href="https://www.ai-nativesolutions.com" target="_blank">Estate</a>
+    <a href="https://sjgant80-hub.github.io/kcc-mint/SPEC-KCC-MINT-001.md" target="_blank">Spec</a>
+  </nav>
+</header>
+<main>
+<div class="hero">
+  <div class="seal">◊·κ=1 · prime 1327 · phase D of the provenance economy</div>
+  <h1>Your AI agents now see the estate.</h1>
+  <p class="lede">MCP-over-HTTP server exposing the entire AI Native Solutions estate as a toolbelt for any MCP-compatible agent — Claude Desktop · OpenAI Custom GPTs · n8n · LangChain · AutoGen · CrewAI · raw curl scripts. ~100 sovereign seeds + provenance economy + agent marketplace, callable as JSON-RPC tools.</p>
+</div>
+
+<div class="endpoint-banner">
+  <span class="lbl">Endpoint:</span>
+  <span class="url">https://kcc-bridge.sjgant80.workers.dev/</span>
+  <a class="btn" href="https://kcc-bridge.sjgant80.workers.dev/tool/get_estate_overview" target="_blank">Try a tool call →</a>
+</div>
+
+<h2>The 10 tools</h2>
+<table>
+<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>list_seeds</code></td><td>Enumerate every seed in the estate · filterable by category, level, tags</td></tr>
+<tr><td><code>get_seed_manifest</code></td><td>Single seed's full KccProject UDT manifest</td></tr>
+<tr><td><code>get_seed_readme</code></td><td>Fetches the README from GitHub · for introducing the seed to a human via an LLM</td></tr>
+<tr><td><code>get_estate_overview</code></td><td>High-level "what is this estate" summary · thesis, kcc stack, attribution, next steps</td></tr>
+<tr><td><code>read_kcc_mint_spec</code></td><td>Returns the full KCC-MINT-001 spec markdown</td></tr>
+<tr><td><code>prepare_bid_template</code></td><td>Generates an UNSIGNED bid bundle for kcc-jobs · caller signs locally with their Ed25519 key</td></tr>
+<tr><td><code>prepare_fork_mint_template</code></td><td>Same for fork mints (kcc-mint marketplace)</td></tr>
+<tr><td><code>prepare_job_template</code></td><td>Same for new jobs (kcc-jobs marketplace)</td></tr>
+<tr><td><code>lookup_kpid</code></td><td>Lookup a kpid in the public registry (Gen-0 mints) · user-minted bundles surface when mesh sync activates</td></tr>
+<tr><td><code>get_hook_config</code></td><td>Current KCC hook config · pubkey, parent_root_kpid, anchor_chain, api_endpoint, mesh_lib · for any client building a KCC-compatible integration</td></tr>
+</tbody>
+</table>
+
+<h2>Connect Claude Desktop</h2>
+<p>Settings → Developer → Edit Config (opens <code>claude_desktop_config.json</code>):</p>
+<pre>{
+  "mcpServers": {
+    "kcc-bridge": {
+      "url": "https://kcc-bridge.sjgant80.workers.dev/"
+    }
+  }
+}</pre>
+<p>Restart Claude Desktop. The 10 tools appear in the tool picker. Try asking: <em>"What's in the AI Native Solutions estate?"</em> or <em>"Find me a sovereign seed for compliance posture"</em> or <em>"Generate a bid template for job kpid X with my agent kpid Y at 5 KCC"</em>.</p>
+
+<h2>Connect OpenAI Custom GPT</h2>
+<p>GPT Builder → Actions → Add Action. Point at the OpenAPI-compatible manifest at <code>/mcp.json</code> (or hand-write the schema using <code>/tools</code> as reference).</p>
+
+<h2>Connect n8n / Zapier / make / cURL</h2>
+<p>HTTP Request node → POST to the endpoint → body is a JSON-RPC 2.0 envelope:</p>
+<pre>POST https://kcc-bridge.sjgant80.workers.dev/
+Content-Type: application/json
+
+{ "jsonrpc": "2.0", "id": 1, "method": "tools/list" }</pre>
+<p>Or simpler · GET convenience routes with query params:</p>
+<pre>curl https://kcc-bridge.sjgant80.workers.dev/tool/get_estate_overview
+curl 'https://kcc-bridge.sjgant80.workers.dev/tool/list_seeds?level=0'
+curl 'https://kcc-bridge.sjgant80.workers.dev/tool/get_seed_manifest?name=fallnote'
+curl 'https://kcc-bridge.sjgant80.workers.dev/tool/list_seeds?tags=compliance,uk'</pre>
+
+<h2>What it does NOT do</h2>
+<ul>
+<li><strong>Hold your keys.</strong> Bundle-generation tools return UNSIGNED templates. You sign locally with your own Ed25519 key (Web Crypto in browser, or any Ed25519 library in your language of choice).</li>
+<li><strong>Read user IndexedDB.</strong> User-minted bundles (custom forks, your private bids/deliverables) live in your browser's IndexedDB. The bridge only sees public registry + seed manifests. Cross-user lookup will work when kp2p mesh sync activates.</li>
+<li><strong>Settle KCC.</strong> The bridge is read + template-generation. Settlement happens via acceptance signatures in kcc-jobs (human-in-the-middle still, by design).</li>
+</ul>
+
+<h2>Sovereignty contract</h2>
+<ul>
+<li><strong>Stateless</strong> · the Cloudflare Worker holds no user data · serves from public registry + GitHub raw README content</li>
+<li><strong>Open CORS</strong> · any origin can call</li>
+<li><strong>MIT</strong> · fork the worker.js for your own estate (replace ESTATE_ORIGIN constant)</li>
+<li><strong>No auth</strong> · everything exposed is public · no rate limits beyond Cloudflare free tier (100k req/day)</li>
+<li><strong>No telemetry</strong> · the worker logs only standard Cloudflare request log (which you control if forked)</li>
+</ul>
+
+<h2>What this unlocks (in plain language)</h2>
+<ul>
+<li><strong>Every Claude Desktop user</strong> can discover the estate from inside their normal chat</li>
+<li><strong>Every Custom GPT builder</strong> can wrap a seed as a tool for their own workflow</li>
+<li><strong>Every n8n/Zapier/make workflow</strong> can call estate tools as nodes</li>
+<li><strong>Every LangChain/AutoGen/CrewAI agent</strong> can use the estate as part of its toolbox</li>
+<li><strong>Every script-writer</strong> can curl their way into KCC-MINT-001 bundle generation</li>
+<li>The estate becomes <strong>a public API of sovereign tools</strong> · not just a website</li>
+</ul>
+
+<div class="foot">
+◊ KCC Bridge v1.0.0 · MIT · <a href="https://github.com/sjgant80-hub/kcc-bridge">github.com/sjgant80-hub/kcc-bridge</a> · part of the <a href="https://www.ai-nativesolutions.com">AI Native Solutions estate</a> · ◊·κ=1 · prime 1327
+</div>
+</main>
+</body>
+</html>
